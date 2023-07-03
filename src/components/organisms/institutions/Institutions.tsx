@@ -94,7 +94,6 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
     setPasswordConfigurationsValues(values);
     return values;
   };
-  console.warn('basicInformationValues', basicInformationValues);
   if (isLoading) {
     return <Loader />;
   }
@@ -214,9 +213,14 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
         )}
       </Formik>
       <br></br>
-      <div className={styles.buttonContainer}>
-        <Button label="Submit" type="button" variant="primary" isLoading={false} onClick={handleSubmit} />
-      </div>
+      <Button
+        label="Submit"
+        type="button"
+        variant="primary"
+        isLoading={false}
+        onClick={handleSubmit}
+        style={{ width: '10rem', marginTop: '2rem' }}
+      />
     </div>
   );
 };

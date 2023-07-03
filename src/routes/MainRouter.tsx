@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import PublicRoute from './routing/PublicRoutes';
 import Login from '../features/authentication/login/Login';
-import Dashboard from '../features/auth/dashboard/Dashboard';
+import Dashboard from '../features/authenticated/dashboard/Dashboard';
 import ProtectedRoute from './routing/ProtectedRoutes';
 
 const MainRouter: React.FC = () => {

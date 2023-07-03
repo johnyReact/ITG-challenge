@@ -4,6 +4,7 @@ interface IButtonProps {
   variant: 'primary' | 'secondary';
   onClick?: () => void;
   isLoading: boolean;
+  style?: React.CSSProperties;
 }
 
 export default IButtonProps;

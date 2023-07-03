@@ -1,3 +1,4 @@
+@import '../../../assets/styles/colors';
 .inputContainer {
   display: flex;
   flex-direction: column;
@@ -6,6 +7,7 @@
 }
 
 .inputLabel {
+  margin-bottom: 0.5rem;
   font-size: 13px;
   width: 80%;
 }
@@ -17,7 +19,7 @@
 }
 
 .inputField {
-  padding: 0.3rem;
+  padding: 0.5rem;
   // padding-right: 30px;
   border: 1px solid #ccc;
   border-radius: 4px;
@@ -33,7 +35,7 @@
 }
 
 .inputError {
-  border-color: #dc3545;
+  border-color: $red;
 }
 
 .eyeIcon {
@@ -48,12 +50,12 @@
 }
 
 .errorText {
-  color: #dc3545;
+  color: $red;
   font-size: 0.875rem;
   display: flex;
   justify-content: flex-end;
   margin-top: 0.4rem;
 }
 .requiredSpan {
-  color: #dc3545;
+  color: $red;
 }

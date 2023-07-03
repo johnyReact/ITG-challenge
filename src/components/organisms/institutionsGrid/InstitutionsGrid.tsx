@@ -47,14 +47,43 @@ const InstitutionGrid: React.FC<IInstitutionsGridProps> = ({ gridData, onEdit })
       </div>
     );
   };
+  const printData = () => {
+    let html = '<table><tr><th>Institution Code</th><th>Institution Name</th><th>Institution ID</th></tr>';
+    data.forEach((d) => {
+      html += `<tr><td>${d.instCode}</td><td>${d.instName}</td><td>${d.instId}</td></tr>`;
+    });
+    html += '</table>';
 
+    const printWindow = window.open('', '', 'width=800,height=600');
+
+    if (printWindow) {
+      printWindow.document.open();
+      printWindow.document.write(html);
+      printWindow.document.close();
+      printWindow.print();
+    } else {
+      alert(
+        'A popup blocker may be preventing the print window from opening. Please disable popup blockers for this site and try again.',
+      );
+    }
+  };
   return (
-    <DataTable value={data} scrollable scrollHeight="500px" paginator rows={5}>
-      <Column field="instCode" header="Institution Code" sortable></Column>
-      <Column field="instName" header="Institution Name" sortable></Column>
-      <Column field="instId" header="Institution ID" sortable></Column>
-      <Column body={actionBodyTemplate}></Column>
-    </DataTable>
+    <>
+      <DataTable value={data} scrollable scrollHeight="500px" paginator rows={5}>
+        <Column field="instCode" header="Institution Code" sortable></Column>
+        <Column field="instName" header="Institution Name" sortable></Column>
+        <Column field="instId" header="Institution ID" sortable></Column>
+        <Column body={actionBodyTemplate}></Column>
+      </DataTable>
+      <Button
+        label="Print"
+        onClick={printData}
+        type={'button'}
+        variant="primary"
+        isLoading={false}
+        style={{ width: '10rem', marginTop: '2rem' }}
+      />
+    </>
   );
 };
 

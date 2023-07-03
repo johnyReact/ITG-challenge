@@ -23,7 +23,7 @@ const LoginTemplate: React.FC = () => {
       if (res?.data?.data && res?.data?.data?.userId) {
         navigate('/dashboard');
       } else if (res?.error) {
-        toast.error('error username or password are incorrect');
+        toast.error('Incorrect username or password');
       }
     });
   };
@@ -34,35 +34,38 @@ const LoginTemplate: React.FC = () => {
         <img className={styles.loginImage} src={image} />
       </div>
       <div className={styles.loginRightContainer}>
-        <Formik
-          initialValues={{ username: '', password: '' }}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-        >
-          {({ errors, touched, values, setFieldValue }) => (
-            <Form className={styles.loginContainer}>
-              <div>
-                <h3>Welcome to ITJ</h3>
-              </div>
-              <Input
-                label="User Name"
-                name="username"
-                value={values.username}
-                setFieldValue={setFieldValue}
-                error={touched.username && errors.username ? errors.username : undefined}
-              />
-              <Input
-                label="Password"
-                name="password"
-                type="password"
-                value={values.password}
-                setFieldValue={setFieldValue}
-                error={touched.password && errors.password ? errors.password : undefined}
-              />
-              <Button label="Submit" type="submit" variant="primary" isLoading={isLoading} />
-            </Form>
-          )}
-        </Formik>
+        <div className={styles.loginContainer}>
+          <Formik
+            initialValues={{ username: '', password: '' }}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+          >
+            {({ errors, touched, values, setFieldValue }) => (
+              <Form>
+                <div>
+                  <h3>Welcome to ITJ</h3>
+                  <h4>Login</h4>
+                </div>
+                <Input
+                  label="User Name"
+                  name="username"
+                  value={values.username}
+                  setFieldValue={setFieldValue}
+                  error={touched.username && errors.username ? errors.username : undefined}
+                />
+                <Input
+                  label="Password"
+                  name="password"
+                  type="password"
+                  value={values.password}
+                  setFieldValue={setFieldValue}
+                  error={touched.password && errors.password ? errors.password : undefined}
+                />
+                <Button label="Submit" type="submit" variant="primary" isLoading={isLoading} />
+              </Form>
+            )}
+          </Formik>
+        </div>
       </div>
     </div>
   );

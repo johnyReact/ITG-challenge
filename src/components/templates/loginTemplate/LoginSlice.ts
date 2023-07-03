@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../../app/store';
 
 export interface AuthState {
@@ -12,6 +12,12 @@ const initialState: AuthState = {
   refToken: null,
   userInfo: null,
 };
+
+export const logout = createAsyncThunk('auth/logout', async (_, { dispatch }) => {
+  localStorage.removeItem('persist:root');
+
+  dispatch(setUser({ refToken: null, token: null, userInfo: null }));
+});
 
 export const authSlice = createSlice({
   name: 'auth',
