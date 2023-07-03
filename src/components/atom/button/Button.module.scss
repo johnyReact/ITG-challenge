@@ -1,0 +1,64 @@
+@import '../../../assets/styles/colors';
+.btn {
+  width: 100%;
+  position: relative;
+  padding: 0.8rem 0.8rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  border: none;
+  overflow: hidden;
+  // display: flex;
+  // align-items: center;
+  // justify-content: center;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:hover {
+    filter: brightness(90%);
+  }
+}
+
+.btn:disabled {
+  background-color: $lightgrey;
+  color: $darkgrey;
+  cursor: not-allowed;
+}
+
+.primary {
+  background: linear-gradient(to right, $primary_color, darken($primary_color, 20%));
+  color: $white;
+}
+
+.secondary {
+  background: linear-gradient(to right, $secondary_color, darken($secondary_color, 20%));
+  color: $white;
+}
+
+.loader {
+  right: 10px;
+  bottom: 12px;
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: $white;
+  animation: spin 1s ease-in-out infinite;
+  -webkit-animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@-webkit-keyframes spin {
+  to {
+    -webkit-transform: rotate(360deg);
+  }
+}

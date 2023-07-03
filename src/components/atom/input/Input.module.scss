@@ -1,0 +1,59 @@
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+  // gap: 15px;
+}
+
+.inputLabel {
+  font-size: 13px;
+  width: 80%;
+}
+
+.inputWrapper {
+  position: relative;
+  display: flex;
+  gap: 1rem;
+}
+
+.inputField {
+  padding: 0.3rem;
+  // padding-right: 30px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.3s ease-in-out;
+  &:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    outline: none;
+  }
+}
+
+.inputError {
+  border-color: #dc3545;
+}
+
+.eyeIcon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  &:hover {
+    filter: brightness(30%);
+  }
+}
+
+.errorText {
+  color: #dc3545;
+  font-size: 0.875rem;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 0.4rem;
+}
+.requiredSpan {
+  color: #dc3545;
+}
