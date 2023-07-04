@@ -18,15 +18,20 @@ import endpoints from '../../../api/endpoints';
 import Loader from '../../atom/loader/Loader';
 
 const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) => {
+  // Hooks for handling state of form data
   const [basicInformationValues, setBasicInformationValues] = useState<IData>({});
   const [hostConfigurationsValues, setHostConfigurationsValues] = useState<IData>({});
   const [passwordConfigurationsValues, setPasswordConfigurationsValues] = useState<IData>({});
+
+  // Hook to manage POST request
   const [postInstitution] = usePostMutation();
 
+  // Hook to manage GET request and loading state
   const { data: institutionData, isLoading } = useGetQuery(`${endpoints.Institution}/${institution?.instId}`, {
     skip: !institution,
   });
 
+  // Initializing Formik form references
   const basicInformationFormRef = createRef<FormikProps<any>>();
   const hostConfigurationsFormRef = createRef<FormikProps<any>>();
   const passwordConfigurationsFormRef = createRef<FormikProps<any>>();
@@ -67,19 +72,24 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
       hostConfigurationsFormRef.current?.validateForm(),
       passwordConfigurationsFormRef.current?.validateForm(),
     ]);
-    console.log('Combined Data:', validateResults);
+    // Checks if any of the validation results are not empty (i.e., there are validation errors)
+    const hasValidationErrors = validateResults.some((result) => Object.keys(result || {}).length > 0);
 
-    const combinedData = {
-      ...basicInformationValues,
-      ...hostConfigurationsValues,
-      ...passwordConfigurationsValues,
-    };
-    console.warn('resutlssssadsdasdasd');
-    postInstitution({ apiUrl: endpoints.Institution, formData: combinedData }).then((res) => {
-      console.warn('resutlsss', res);
-    });
+    if (!hasValidationErrors) {
+      const combinedData = {
+        ...basicInformationValues,
+        ...hostConfigurationsValues,
+        ...passwordConfigurationsValues,
+      };
+
+      console.warn('resutlssssadsdasdasd', combinedData);
+      postInstitution({ apiUrl: endpoints.Institution, formData: combinedData }).then((res) => {
+        console.warn('resutlsss', res);
+      });
+    }
   };
 
+  // Functions to handle individual section submits
   const handleBasicInformationSubmit = (values: any) => {
     setBasicInformationValues(values);
     return values;
@@ -94,6 +104,8 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
     setPasswordConfigurationsValues(values);
     return values;
   };
+
+  // Loading state handling
   if (isLoading) {
     return <Loader />;
   }
@@ -105,7 +117,7 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
         innerRef={basicInformationFormRef}
         initialValues={
           basicInformationValues ??
-          Object.keys(BasicInformation).reduce((obj: any, key: any) => {
+          Object.keys(BasicInformation).reduce((obj: any, key: string) => {
             obj[key] = '';
             return obj;
           }, {})
@@ -114,18 +126,19 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
         validationSchema={BasicInformationSchema}
         onSubmit={handleBasicInformationSubmit}
       >
-        {({ errors, touched, values, setFieldValue }) => (
+        {({ errors, values, setFieldValue }) => (
           <Form className={styles.formContainer}>
             {Object.entries(BasicInformation).map(([key, field]) =>
               field.type === 'select' ? (
-                <div key={key} style={{ display: 'flex', gap: '10px', justifyContent: 'space-between' }}>
-                  <p>{field.label}</p>
+                <div key={key} className={styles.selectContainer}>
+                  <label className={styles.label}>{field.label}</label>
                   <Select
                     options={countries}
                     placeholder={field.label}
                     value={values[key]?.value}
                     onChange={setFieldValue}
                     name={key}
+                    className={styles.select}
                   />
                 </div>
               ) : (
@@ -139,7 +152,7 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
                   setFieldValue={setFieldValue}
                   flexed
                   required={field.required}
-                  error={touched[key] && errors[key] ? (errors[key] as string) : ''}
+                  error={errors[key] && field.required ? (errors[key] as string) : ''}
                 />
               ),
             )}
@@ -151,7 +164,7 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
         innerRef={hostConfigurationsFormRef}
         initialValues={
           hostConfigurationsValues ??
-          Object.keys(hostConfigurations).reduce((obj: any, key: any) => {
+          Object.keys(hostConfigurations).reduce((obj: any, key: string) => {
             obj[key] = '';
             return obj;
           }, {})
@@ -184,7 +197,7 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
         innerRef={passwordConfigurationsFormRef}
         initialValues={
           passwordConfigurationsValues ??
-          Object.keys(passwordConfigurationsValues ?? passwordPolicies).reduce((obj: any, key: any) => {
+          Object.keys(passwordConfigurationsValues ?? passwordPolicies).reduce((obj: any, key: string) => {
             obj[key] = '';
             return obj;
           }, {})

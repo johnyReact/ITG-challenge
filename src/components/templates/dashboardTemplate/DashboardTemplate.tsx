@@ -14,6 +14,7 @@ const DashboardTemplate: React.FC<DashboardTemplateProps> = ({ data, gridData, c
   const handleChange = (selectedOption: any) => {
     setSelectedOption(selectedOption);
   };
+
   const handleEdit = (rowData: any) => {
     setCurrenInst(rowData);
   };

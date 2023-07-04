@@ -6,7 +6,18 @@
     margin: 1rem;
   }
 }
-
+.label {
+  margin-bottom: 0.5rem;
+  font-size: 13px;
+}
+.selectContainer {
+  display: flex;
+  gap: 5rem;
+  justify-content: space-between;
+  .select {
+    width: 54.5%;
+  }
+}
 .formContainer {
   width: 100%;
   display: grid;

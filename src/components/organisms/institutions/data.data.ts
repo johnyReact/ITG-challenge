@@ -16,11 +16,32 @@ const BasicInformation: FieldsType = {
     validation: Yup.string().required('AdhocRnNewExp is required'),
     required: true,
   },
+  hostIntegration: {
+    type: 'input',
+    label: 'Host Integration',
+    fieldType: 'text',
+    validation: Yup.string().required('Host integration is required'),
+    required: true,
+  },
+  instStatus: {
+    type: 'input',
+    label: 'Institution Status',
+    fieldType: 'text',
+    validation: Yup.string().required('Institution Status is required'),
+    required: true,
+  },
   instCode: {
     type: 'input',
     label: 'institution Code',
     fieldType: 'number',
     validation: Yup.number().required('Code is required'),
+    required: true,
+  },
+  instName: {
+    type: 'input',
+    label: 'institution Name',
+    fieldType: 'number',
+    validation: Yup.number().required('Code Name is required'),
     required: true,
   },
   countryId: {

@@ -26,6 +26,7 @@ export const apiSlice = createApi({
 export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
   if (isRejectedWithValue(action)) {
     if (action?.payload?.status === 401) {
+      console.warn('asdasdasdas');
       store.dispatch(logout());
       toast.error(action?.payload?.data?.message?.join(', '));
     }

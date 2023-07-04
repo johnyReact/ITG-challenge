@@ -7,12 +7,12 @@ const Dashboard: React.FC = () => {
   const { data } = useGetQuery(endpoints.institution);
   const { data: countries } = useGetQuery(endpoints.countries);
   const { data: grid } = useGetQuery(endpoints.institutionGrid);
-  const options = data?.map((val: any) => ({
+  const options = data?.map((val: { instId: number; instName: string }) => ({
     value: val.instId,
     label: val.instName,
   }));
 
-  const countriesData = countries?.map((item: any) => {
+  const countriesData = countries?.map((item: { countryId: number; countryDesc: string }) => {
     return {
       value: item.countryId,
       label: item.countryDesc,
