@@ -1,23 +1,28 @@
 .institutionsContainer {
   width: 100%;
   margin-bottom: 2rem;
+
   h1,
   h4 {
-    margin: 1rem;
+    margin: 1rem 0rem;
   }
 }
+
 .label {
   margin-bottom: 0.5rem;
   font-size: 13px;
 }
+
 .selectContainer {
   display: flex;
   gap: 5rem;
   justify-content: space-between;
+
   .select {
     width: 54.5%;
   }
 }
+
 .formContainer {
   width: 100%;
   display: grid;
@@ -29,6 +34,7 @@
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
   }
+
   @media (max-width: 1180px) {
     grid-template-columns: 2fr;
   }
@@ -36,6 +42,7 @@
 
 .buttonContainer {
   width: 10rem;
+
   @media (max-width: 768px) {
     width: 100%;
   }

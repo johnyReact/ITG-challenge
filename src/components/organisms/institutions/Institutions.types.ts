@@ -8,7 +8,7 @@ interface BasicField {
   type: string;
   label: string;
   fieldType: string;
-  validation: Yup.NumberSchema | Yup.StringSchema;
+  validation?: Yup.NumberSchema | Yup.StringSchema | Yup.BooleanSchema;
   required?: boolean;
 }
 interface IData {

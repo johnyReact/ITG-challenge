@@ -1,0 +1,68 @@
+@import '../../../assets/styles/colors';
+
+.toggleContainer {
+    display: flex;
+    align-items: flex-start;
+}
+
+.toggleSwitch {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    // width: 300px;
+    padding: 0.5rem;
+    border-radius: 4px;
+    box-sizing: border-box;
+    transition: all 0.3s ease-in-out;
+    gap: 1rem;
+
+    &.toggleError {
+        border-color: $red;
+    }
+
+    input {
+        cursor: pointer;
+        position: relative;
+        width: 50px;
+        height: 25px;
+        -webkit-appearance: none;
+        background-color: #c6c6c6;
+        outline: none;
+        border-radius: 50px;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, .2);
+        transition: .5s;
+
+        &:checked {
+            background-color: #52d66a;
+        }
+
+        &:before {
+            content: "";
+            position: absolute;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            top: 0;
+            left: 0;
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, .2);
+            transition: .5s;
+        }
+
+        &:checked:before {
+            left: 25px;
+        }
+    }
+
+    .sliderLabel {
+        font-size: 1rem;
+        margin-bottom: 0;
+    }
+}
+
+.toggleLabel {
+    font-size: 13px;
+    width: 300px;
+    margin-bottom: 0.5rem;
+}

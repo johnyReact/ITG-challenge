@@ -39,53 +39,53 @@ const BasicInformation: FieldsType = {
   },
   instName: {
     type: 'input',
-    label: 'institution Name',
-    fieldType: 'number',
-    validation: Yup.number().required('Code Name is required'),
+    label: 'Institution Name',
+    fieldType: 'text',
+    validation: Yup.string().required('Institution Name is required'),
     required: true,
   },
-  countryId: {
-    type: 'select',
-    label: 'Country ID',
-    fieldType: 'number',
-    validation: Yup.number(),
-  },
+  // countryId: {
+  //   type: 'select',
+  //   label: 'Country ID',
+  //   fieldType: 'number',
+  //   validation: Yup.number(),
+  // },
 
-  customerIdLength: {
-    type: 'input',
-    label: 'Customer ID Length',
-    fieldType: 'number',
-    validation: Yup.number().required('Customer ID Length is required'),
-  },
+  // customerIdLength: {
+  //   type: 'input',
+  //   label: 'Customer ID Length',
+  //   fieldType: 'number',
+  //   // validation: Yup.number().required('Customer ID Length is required'),
+  // },
   adhocRpNewExp: {
     type: 'input',
     label: 'AdhocRpNewExp',
     fieldType: 'text',
-    validation: Yup.string().required('AdhocRpNewExp is required'),
+    // validation: Yup.string().notRequired(),
   },
   daysToLockUser: {
     type: 'input',
     label: 'Days To Lock User',
     fieldType: 'number',
-    validation: Yup.number().required('Days To Lock User is required'),
+    validation: Yup.number(),
   },
   ecomOutputPath: {
     type: 'input',
     label: 'Ecom Output Path',
     fieldType: 'text',
-    validation: Yup.string().required('Ecom Output Path is required'),
+    validation: Yup.string(),
   },
   embossingOutputPath: {
     type: 'input',
     label: 'Embossing Output Path',
     fieldType: 'text',
-    validation: Yup.string().required('Embossing Output Path is required'),
+    validation: Yup.string(),
   },
   encryptionKey: {
     type: 'input',
     label: 'Encryption Key',
     fieldType: 'text',
-    validation: Yup.string().required('Encryption Key is required'),
+    validation: Yup.string(),
   },
 };
 
@@ -104,11 +104,15 @@ const BasicInformationSchema = Yup.object().shape(
         break;
     }
 
-    acc[curr] = validationType.required(`${BasicInformation[curr].label} is required`);
+    if (BasicInformation[curr].required) {
+      acc[curr] = validationType.required(`${BasicInformation[curr].label} is required`);
+    } else {
+      acc[curr] = validationType;
+    }
+
     return acc;
   }, {}),
 );
-
 const hostConfigurations: FieldsType = {
   hostId: {
     type: 'input',
@@ -150,7 +154,7 @@ const hostConfigurations: FieldsType = {
 };
 const hostConfigurationsSchema = Yup.object().shape(
   Object.keys(hostConfigurations).reduce((acc: Record<string, Yup.AnySchema>, curr: string) => {
-    acc[curr] = hostConfigurations[curr].validation;
+    acc[curr] = hostConfigurations[curr].validation!;
     return acc;
   }, {}),
 );
@@ -169,10 +173,10 @@ const passwordPolicies: FieldsType = {
     validation: Yup.number(),
   },
   lowerFlag: {
-    type: 'input',
+    type: 'toggle',
     label: 'Lower Flag',
     fieldType: 'text',
-    validation: Yup.string(),
+    validation: Yup.boolean(),
   },
   numberCount: {
     type: 'input',
@@ -181,11 +185,12 @@ const passwordPolicies: FieldsType = {
     validation: Yup.number(),
   },
   numberFlag: {
-    type: 'input',
+    type: 'toggle',
     label: 'Number Flag',
     fieldType: 'text',
-    validation: Yup.string(),
+    validation: Yup.boolean(),
   },
+
   passwordHistory: {
     type: 'input',
     label: 'Password History',
@@ -212,10 +217,10 @@ const passwordPolicies: FieldsType = {
     validation: Yup.number(),
   },
   specialCharactersFlag: {
-    type: 'input',
+    type: 'toggle',
     label: 'Special Characters Flag',
     fieldType: 'text',
-    validation: Yup.string(),
+    validation: Yup.boolean(),
   },
   specialCharactersList: {
     type: 'input',
@@ -230,16 +235,16 @@ const passwordPolicies: FieldsType = {
     validation: Yup.number(),
   },
   upperFlag: {
-    type: 'input',
+    type: 'toggle',
     label: 'Upper Flag',
     fieldType: 'text',
-    validation: Yup.string(),
+    validation: Yup.boolean(),
   },
 };
 
 const passwordPoliciesSchema = Yup.object().shape(
   Object.keys(passwordPolicies).reduce((acc: Record<string, Yup.AnySchema>, curr: string) => {
-    acc[curr] = passwordPolicies[curr].validation;
+    acc[curr] = passwordPolicies[curr].validation!;
     return acc;
   }, {}),
 );

@@ -16,6 +16,7 @@ import Button from '../../atom/button/Button';
 import { useGetQuery, usePostMutation } from '../../../sevices/apiCall';
 import endpoints from '../../../api/endpoints';
 import Loader from '../../atom/loader/Loader';
+import ToggleControl from '../../atom/toggleControl/ToggleControl';
 
 const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) => {
   // Hooks for handling state of form data
@@ -72,17 +73,16 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
       hostConfigurationsFormRef.current?.validateForm(),
       passwordConfigurationsFormRef.current?.validateForm(),
     ]);
-    // Checks if any of the validation results are not empty (i.e., there are validation errors)
-    const hasValidationErrors = validateResults.some((result) => Object.keys(result || {}).length > 0);
 
+    const hasValidationErrors = validateResults.some((result) => Object.keys(result || {}).length > 0);
+    console.warn(validateResults);
     if (!hasValidationErrors) {
       const combinedData = {
-        ...basicInformationValues,
-        ...hostConfigurationsValues,
-        ...passwordConfigurationsValues,
+        ...basicInformationFormRef.current?.values,
+        hostConfigurations: { ...hostConfigurationsFormRef.current?.values },
+        passwordPolicies: { ...passwordConfigurationsFormRef.current?.values },
       };
-
-      console.warn('resutlssssadsdasdasd', combinedData);
+      console.warn(combinedData);
       postInstitution({ apiUrl: endpoints.Institution, formData: combinedData }).then((res) => {
         console.warn('resutlsss', res);
       });
@@ -209,18 +209,31 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
         {({ errors, values, setFieldValue }) => (
           <Form className={styles.formContainer}>
             {Object.entries(passwordPolicies).map(([key, field]) => (
-              <Input
-                key={key}
-                placeholder={field.label}
-                label={field.label}
-                name={key}
-                type={field.fieldType}
-                value={values[key]}
-                setFieldValue={setFieldValue}
-                flexed
-                required={field.required}
-                error={errors[key] ? (errors[key] as string) : ''}
-              />
+
+              field.type === 'toggle' ?
+                <ToggleControl
+                  key={key}
+                  label={field.label}
+                  name={key}
+                  isChecked={values[key]}
+                  handleToggle={(name, value) => {
+                    return setFieldValue(name, value);
+                  }}
+                />
+                :
+
+                <Input
+                  key={key}
+                  placeholder={field.label}
+                  label={field.label}
+                  name={key}
+                  type={field.fieldType}
+                  value={values[key]}
+                  setFieldValue={setFieldValue}
+                  flexed
+                  required={field.required}
+                  error={errors[key] ? (errors[key] as string) : ''}
+                />
             ))}
           </Form>
         )}

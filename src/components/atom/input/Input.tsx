@@ -20,8 +20,14 @@ const Input: React.FC<IInputProps> = ({
   const [value, setValue] = useState(initialValue || '');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(e.target.value);
-    setFieldValue(name, e.target.value);
+    let newValue: any = e.target.value;
+
+    if (type === 'number') {
+      newValue = e.target.value === '' ? '' : Number(e.target.value);
+    }
+
+    setValue(newValue);
+    setFieldValue(name, newValue);
   };
 
   const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
@@ -48,24 +54,27 @@ const Input: React.FC<IInputProps> = ({
             {label} {required ? <span className={styles.requiredSpan}>*</span> : null}
           </label>
         ) : null}
+        <div style={{ width: '100%' }}>
+          <input
+            id={name}
+            name={name}
+            placeholder={placeholder}
+            type={showPassword ? 'text' : type}
+            value={value}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            className={`${styles.inputField} ${error ? styles.inputError : ''}`}
+          />
+          {error ? <div className={styles.errorText}>{error}</div> : null}
+        </div>
 
-        <input
-          id={name}
-          name={name}
-          placeholder={placeholder}
-          type={showPassword ? 'text' : type}
-          value={value}
-          onChange={handleChange}
-          onBlur={handleBlur}
-          className={`${styles.inputField} ${error ? styles.inputError : ''}`}
-        />
         {type === 'password' && (
           <span className={styles.eyeIcon} onClick={toggleShowPassword}>
             {RenderEyes(icon, showPassword)}
           </span>
         )}
       </div>
-      {error ? <div className={styles.errorText}>{error}</div> : null}
+
     </div>
   );
 };
