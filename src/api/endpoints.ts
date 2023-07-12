@@ -5,4 +5,5 @@ export default {
   institutionGrid: '/v1/config/institutions',
   Institution: '/v1/config/institutions',
   countries: '/v1/lookup/countries',
+  logout: '/signout'
 };

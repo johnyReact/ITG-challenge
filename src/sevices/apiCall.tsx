@@ -60,16 +60,16 @@ export const apiCall = apiSlice.injectEndpoints({
         },
       }),
     }),
-    // logout: builder.mutation<void, void>({
-    //   query: () => ({
-    //     url: endpoints.idp_microservice_logout,
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json',
-    //       'Accept-Language': 'en',
-    //     },
-    //   }),
-    // }),
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: endpoints.logout,
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept-Language': 'en',
+        },
+      }),
+    }),
     login: builder.mutation({
       query: (credentials) => ({
         url: endpoints.login,
@@ -106,4 +106,5 @@ export const {
   usePutMutation,
   useLoginMutation,
   useDeleteMutation,
+  useLogoutMutation,
 } = apiCall;

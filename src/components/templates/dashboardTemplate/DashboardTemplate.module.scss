@@ -11,3 +11,11 @@
   width: 100%;
   padding: 2rem;
 }
+
+.sideBarItems {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 88vh;
+
+}
