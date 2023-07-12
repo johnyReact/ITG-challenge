@@ -33,7 +33,6 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
   const { data: institutionData, isLoading } = useGetQuery(`${endpoints.Institution}/${institution?.instId}`, {
     skip: !institution,
   });
-  console.warn('institutionData', institutionData);
   // Initializing Formik form references
   const basicInformationFormRef = createRef<FormikProps<any>>();
   const hostConfigurationsFormRef = createRef<FormikProps<any>>();
@@ -77,16 +76,13 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
     ]);
 
     const hasValidationErrors = validateResults.some((result) => Object.keys(result || {}).length > 0);
-    console.warn(validateResults);
     if (!hasValidationErrors) {
       const combinedData = {
         ...basicInformationFormRef.current?.values,
         hostConfigurations: { ...hostConfigurationsFormRef.current?.values },
         passwordPolicies: { ...passwordConfigurationsFormRef.current?.values },
       };
-      console.warn(combinedData);
       postInstitution({ apiUrl: endpoints.Institution, formData: combinedData }).then((res: any) => {
-        console.warn('resutlsss', res);
         if (res.error.data.errors) {
           toast.error(cleanErrorMessages(res.error.data?.errors).join(', '));
         } else {

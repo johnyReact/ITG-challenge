@@ -13,7 +13,6 @@ const InstitutionGrid: React.FC<IInstitutionsGridProps> = ({ gridData, onEdit })
   const deleteInstitutionById = async (instId: number) => {
     try {
       await deleteInstitution({ apiUrl: endpoints.Institution, id: instId }).then((res: any) => {
-        console.warn('Resss', res);
         if (
           res.error &&
           res?.error?.data &&
