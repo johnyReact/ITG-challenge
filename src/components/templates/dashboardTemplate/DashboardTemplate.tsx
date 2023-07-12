@@ -14,7 +14,7 @@ import { store } from '../../../app/store';
 const DashboardTemplate: React.FC<DashboardTemplateProps> = ({ data, gridData, countries }) => {
   const [selectedOption, setSelectedOption] = useState(null);
   const [currenInst, setCurrenInst] = useState();
-  const [logoutMutastion] = useLogoutMutation();
+  const [logoutMutastion, { isLoading }] = useLogoutMutation();
 
   const handleChange = (selectedOption: any) => {
     setSelectedOption(selectedOption);
@@ -24,7 +24,7 @@ const DashboardTemplate: React.FC<DashboardTemplateProps> = ({ data, gridData, c
     setCurrenInst(rowData);
   };
   const handleLogout = () => {
-    logoutMutastion().then((res) => {
+    logoutMutastion().then((res: any) => {
       if (res)
         store.dispatch(logout());
     });
@@ -35,8 +35,7 @@ const DashboardTemplate: React.FC<DashboardTemplateProps> = ({ data, gridData, c
       <SideBar logo={<img className={styles.logo} src={image} />}>
         <div className={styles.sideBarItems}>
           <Select options={data} onChange={handleChange} value={selectedOption} />
-
-          <Button label='Logout' type='button' variant='primary' isLoading={false} onClick={handleLogout} />
+          <Button label='Logout' type='button' variant='primary' isLoading={isLoading} onClick={handleLogout} />
         </div>
       </SideBar>
       <div className={styles.sectionsContainer}>

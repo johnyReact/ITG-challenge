@@ -8,7 +8,6 @@ import { Formik, Form } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import cleanErrorMessages from '../../../app/helpers/CleanErrorMessage';
 
 const validationSchema = Yup.object().shape({
   username: Yup.string().required('User Name is required'),
@@ -24,8 +23,7 @@ const LoginTemplate: React.FC = () => {
       if (res?.data?.data && res?.data?.data?.userId) {
         navigate('/dashboard');
       } else if (res?.error) {
-        toast.error(cleanErrorMessages(res.error.data?.errors).join(', '));
-
+        toast.error('Incorrect username or password');
       }
     });
   };

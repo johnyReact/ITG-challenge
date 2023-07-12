@@ -1,4 +1,9 @@
 function cleanErrorMessages(errors: any) {
+    // If errors is a string, make it an array
+    if (typeof errors === 'string') {
+        errors = [errors];
+    }
+    console.warn('sssssss', errors);
     return errors.map((error: string) => {
         // Find the position of ':' character in the string
         const colonIndex = error.indexOf(':');
@@ -10,7 +15,7 @@ function cleanErrorMessages(errors: any) {
         } else {
             return error;
         }
-    });
+    }).join(', '); // Join cleaned strings with a comma and a space
 }
 
 export default cleanErrorMessages;

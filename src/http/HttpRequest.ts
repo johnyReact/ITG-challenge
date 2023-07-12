@@ -4,7 +4,6 @@ import { toast } from 'react-toastify';
 import { store } from '../app/store';
 import endpoints from '../api/endpoints';
 import { logout } from '../components/templates/loginTemplate/LoginSlice';
-import cleanErrorMessages from '../app/helpers/CleanErrorMessage';
 
 const baseQuery = fetchBaseQuery({
   baseUrl: endpoints.baseUrl,
@@ -28,7 +27,7 @@ export const rtkQueryErrorLogger: Middleware = () => (next) => (action) => {
   if (isRejectedWithValue(action)) {
     if (action?.payload?.status === 401) {
       store.dispatch(logout());
-      toast.error(cleanErrorMessages(action.error.data?.errors).join(', '));
+      toast.error(action?.payload?.data?.message?.join(', '));
     }
   }
   return next(action);
