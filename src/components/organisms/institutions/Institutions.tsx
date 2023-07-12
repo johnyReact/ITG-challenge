@@ -90,6 +90,9 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
         if (res.error.data.errors) {
           toast.error(cleanErrorMessages(res.error.data?.errors).join(', '));
         } else {
+          setBasicInformationValues({});
+          setHostConfigurationsValues({});
+          setPasswordConfigurationsValues({});
           toast.error(cleanErrorMessages(res.error.data?.errors).join(', '));
         }
       });
