@@ -7,6 +7,7 @@ import styles from './InstitutionsGrid.module.scss';
 import { useDeleteMutation } from '../../../sevices/apiCall';
 import endpoints from '../../../api/endpoints';
 import { toast } from 'react-toastify';
+import cleanErrorMessages from '../../../app/helpers/CleanErrorMessage';
 const InstitutionGrid: React.FC<IInstitutionsGridProps> = ({ gridData, onEdit }) => {
   const [deleteInstitution, { isLoading }] = useDeleteMutation();
   const deleteInstitutionById = async (instId: number) => {
@@ -19,7 +20,7 @@ const InstitutionGrid: React.FC<IInstitutionsGridProps> = ({ gridData, onEdit })
           Array.isArray(res?.error?.data?.errors) &&
           res?.error?.data?.errors?.length > 0
         ) {
-          toast.error(res.error.data.errors[0]);
+          toast.error(cleanErrorMessages(res.error.data?.errors).join(', '));
         } else {
           toast.success('Institution deleted successfully');
         }

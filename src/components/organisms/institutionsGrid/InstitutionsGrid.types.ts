@@ -1,6 +1,7 @@
 interface IInstitutionsGridProps {
   gridData?: any;
   onEdit: (rowData: any) => void;
+  instId?: number | null
 }
 type Data = {
   instCode: string;

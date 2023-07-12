@@ -44,12 +44,12 @@ const BasicInformation: FieldsType = {
     validation: Yup.string().required('Institution Name is required'),
     required: true,
   },
-  // countryId: {
-  //   type: 'select',
-  //   label: 'Country ID',
-  //   fieldType: 'number',
-  //   validation: Yup.number(),
-  // },
+  countryId: {
+    type: 'select',
+    label: 'Country ID',
+    fieldType: 'number',
+    validation: Yup.number(),
+  },
 
   // customerIdLength: {
   //   type: 'input',

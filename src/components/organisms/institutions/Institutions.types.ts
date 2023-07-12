@@ -3,6 +3,10 @@ import * as Yup from 'yup';
 interface IInstitutionsProps {
   institution?: { instCode: string; instName: string; instId: number };
   countries?: { value: number; label: string }[];
+  instId: {
+    value: number;
+    label: string;
+  } | null
 }
 interface BasicField {
   type: string;

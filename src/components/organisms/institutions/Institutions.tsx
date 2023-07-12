@@ -17,6 +17,8 @@ import { useGetQuery, usePostMutation } from '../../../sevices/apiCall';
 import endpoints from '../../../api/endpoints';
 import Loader from '../../atom/loader/Loader';
 import ToggleControl from '../../atom/toggleControl/ToggleControl';
+import { toast } from 'react-toastify';
+import cleanErrorMessages from '../../../app/helpers/CleanErrorMessage';
 
 const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) => {
   // Hooks for handling state of form data
@@ -31,7 +33,7 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
   const { data: institutionData, isLoading } = useGetQuery(`${endpoints.Institution}/${institution?.instId}`, {
     skip: !institution,
   });
-
+  console.warn('institutionData', institutionData);
   // Initializing Formik form references
   const basicInformationFormRef = createRef<FormikProps<any>>();
   const hostConfigurationsFormRef = createRef<FormikProps<any>>();
@@ -83,8 +85,13 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
         passwordPolicies: { ...passwordConfigurationsFormRef.current?.values },
       };
       console.warn(combinedData);
-      postInstitution({ apiUrl: endpoints.Institution, formData: combinedData }).then((res) => {
+      postInstitution({ apiUrl: endpoints.Institution, formData: combinedData }).then((res: any) => {
         console.warn('resutlsss', res);
+        if (res.error.data.errors) {
+          toast.error(cleanErrorMessages(res.error.data?.errors).join(', '));
+        } else {
+          toast.error(cleanErrorMessages(res.error.data?.errors).join(', '));
+        }
       });
     }
   };
@@ -135,8 +142,8 @@ const Institutions: React.FC<IInstitutionsProps> = ({ institution, countries }) 
                   <Select
                     options={countries}
                     placeholder={field.label}
-                    value={values[key]?.value}
-                    onChange={setFieldValue}
+                    value={countries?.find(option => option.value === values[key])}
+                    onChange={option => setFieldValue(key, option?.value)}
                     name={key}
                     className={styles.select}
                   />

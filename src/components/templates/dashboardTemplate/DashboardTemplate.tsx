@@ -25,7 +25,7 @@ const DashboardTemplate: React.FC<DashboardTemplateProps> = ({ data, gridData, c
         <Select options={data} onChange={handleChange} value={selectedOption} />
       </SideBar>
       <div className={styles.sectionsContainer}>
-        <Institutions institution={currenInst} countries={countries} />
+        <Institutions institution={currenInst} countries={countries} instId={selectedOption} />
         <InstitutionsGrid gridData={gridData} onEdit={handleEdit} />
       </div>
     </div>
